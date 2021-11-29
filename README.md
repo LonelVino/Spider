@@ -114,10 +114,10 @@ There are 3 spiders available now, and the corresponding commands are as follow:
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
-| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx|xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx | xxx"` (the target collection user's `UID`) |
-| `user_spider`  | `scrapy crawl user_spdier -a uid=xxx|xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
-| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
-| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
+| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx&verbarxxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx &verbar xxx"` (the target collection user's `UID`) |
+| `user_spider`  | `scrapy crawl user_spdier -a uid=xxx&verbarxxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
+| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx&verbarxxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
+| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx&verbarxxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
 
 #### With Python Script
 
