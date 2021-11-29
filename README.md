@@ -83,11 +83,7 @@ At last，rewrite `./WeiboSpider/database/DBconnector.py`，modify the `mongo_pw
 
 ```python
 def __init__(self):
-<<<<<<< HEAD
-  self.mongo_uri = "127.0.0.1" # IP used to connect with Docker.
-=======
   self.mongo_uri = "127.0.0.1:27018" # IP used to connect with Docker.
->>>>>>> 2e1a1d8 (samll bugs)
   self.mongo_database = "weibo" # database created from init_db.js
   self.mongo_user_name = "weibo" # the user in database 'weibo'
   self.mongo_pass_wd = "Your password."
