@@ -43,7 +43,8 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'wb_spider.pipelines.UserPipeline': 100,
-    'wb_spider.pipelines.PostPipeline': 150,  # 150
+    'wb_spider.pipelines.UserPostPipeline': 150,  # 150
+    'wb_spider.pipelines.TagPostPipeline': 150, 
     'wb_spider.pipelines.LongtextPipeline': 200,
     'wb_spider.pipelines.ErrorPipeline': 250
 }

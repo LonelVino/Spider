@@ -1,0 +1,3 @@
+# Weibo Part
+- Add foreign key in userpost related to user 
+- Add Review Spider for each post      

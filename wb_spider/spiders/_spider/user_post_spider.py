@@ -3,25 +3,24 @@ import json
 
 from scrapy.http.request import Request
 from wb_spider.base import BaseSpider
-from wb_spider.config import PostConfig
-from wb_spider.items import PostItem
+from wb_spider.config import UserPostConfig
+from wb_spider.items import UserPostItem
 from wb_spider.items.LongtextItem import LongtextItem
 
 #https://doc.scrapy.org/en/latest/topics/request-resp.html?highlight=Request#scrapy.http.Request
 
-#TODO: check the request and resp again
 
-class PostSpider(BaseSpider):
-    name = 'post_spider'
+class UserPostSpider(BaseSpider):
+    name = 'user_post_spider'
     
     def __init__(self, uid:str, *args, **kwargs):
-        super(PostSpider, self).__init__(uid, *args, **kwargs)
-        self._p_generator = PostConfig()
+        super(UserPostSpider, self).__init__(uid, *args, **kwargs)
+        self._up_generator = UserPostConfig()
         
     def start_requests(self):
         uid_list = self.get_uid_list(self.uid)
         for uid in uid_list:
-            url = self._p_generator.gen_url(uid)
+            url = self._up_generator.gen_url(uid=uid, page=None)
             yield Request(url=url, dont_filter=True, callback=self._parse_post,\
                 errback=self.parse_err, meta={'uid': uid, 'last_page': 0})
 
@@ -37,16 +36,16 @@ class PostSpider(BaseSpider):
         last_page = resp.meta['last_page']
 
         if page is not None and int(page) != last_page:
-            url = self._p_generator.gen_url(uid=uid, page=page)
+            url = self._up_generator.gen_url(uid=uid, page=page)
             yield Request(url=url, dont_filter=True, callback=self._parse_post, errback=self.parse_err, meta={'uid': uid, 'last_page': int(page)})
 
         for card in data['cards']:
-            item = PostItem()
+            item = UserPostItem()
             card['mblog']['uid'] = uid
-            item['post_info'] = card['mblog']
+            item['user_post_info'] = card['mblog']
             if card['mblog']['isLongText']:
                 t_id = card['mblog']['id']
-                url = self._p_generator.gen_url(t_id=t_id)
+                url = self._up_generator.gen_url(t_id=t_id)
                 longtext_req = Request(
                     url=url, dont_filter=True, errback=self.parse_err,
                     callback=self._parse_longtext, meta={'uid': uid, 't_id': t_id}

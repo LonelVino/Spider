@@ -116,7 +116,7 @@ There are 3 spiders available now, and the corresponding commands are as follow:
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
 | `wb_spider` | `scrapy crawl wb_spider -a uid=xxx|xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx | xxx"` (the target collection user's `UID`) |
 | `user_spider`  | `scrapy crawl user_spdier -a uid=xxx|xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
-| `post_spider`  | `scrapy crwal post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`weibo_spider`. |
+| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`weibo_spider`. |
 
 #### With Python Script
 

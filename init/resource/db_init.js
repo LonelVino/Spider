@@ -53,7 +53,8 @@ A collection is the equivalent of a table in a relational database system.
 
 // create target collection
 db.createCollection('user');
-db.createCollection('post');
+db.createCollection('user_post');
+db.createCollection('tag_post');
 db.createCollection('longtext');
 db.createCollection('error_log');
 print("Successfully create collections.");

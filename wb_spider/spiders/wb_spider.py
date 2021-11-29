@@ -1,8 +1,8 @@
 from ._spider.user_info_spider import UserSpider
-from ._spider.post_spider import PostSpider
+from ._spider.user_post_spider import UserPostSpider
 from scrapy import Request
 
-class wb_spider(UserSpider, PostSpider):
+class wb_spider(UserSpider, UserPostSpider):
     name = 'wb_spider'
 
     def init(self, uid, *args, **kwargs):
@@ -15,7 +15,7 @@ class wb_spider(UserSpider, PostSpider):
             yield Request(
                 url=u_url, dont_filter=True, callback=self._parse_profile, errback=self.parse_err, meta={'uid': uid}
             )
-            p_url = self._p_generator.gen_url(uid=uid, page=None)
+            p_url = self._up_generator.gen_url(uid=uid, page=None)
             yield Request(
                 url=p_url, dont_filter=True, callback=self._parse_post, errback=self.parse_err, meta={'uid': uid, 'last_page': 0}
             )

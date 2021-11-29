@@ -80,7 +80,7 @@ fi
 
 	cat <<-EOF
 Run command
-	"sudo docker exec -it wb_spider mongo 127.0.0.1 /etc/resource/db_init.js"
+	"sudo docker exec -it wb_spider mongo 127.0.0.1:27018 /etc/resource/db_init.js"
 EOF
 }
 
