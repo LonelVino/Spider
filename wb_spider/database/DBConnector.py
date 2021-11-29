@@ -4,7 +4,7 @@ import pymongo
 #TODO: save the url, db, usr, pwd in a ENV file. 
 class DBConnector:
     def __init__(self):
-        self.mongo_url = "127.0.0.1"
+        self.mongo_url = "127.0.0.1:27018"
         self.mongo_db = "weibo"
         self.mongo_usr = "weibo"
         self.mongo_pwd= "123456"

@@ -11,7 +11,7 @@ class UserConfig(BaseConfig):
         }
         
     def __call__(self, uid):
-        self.gen_url(uid)
+        return self.gen_url(uid)
     
     def gen_url(self, uid):
         return self.url + self.__api['api_0'] + uid + self.__api['api_1'] + uid

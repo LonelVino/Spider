@@ -42,8 +42,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'wb_spider.pipelines.UserInfoPipeline': 100,
-    'wb_spider.pipelines.TweetInfoPipeline': 150,  # 150
+    'wb_spider.pipelines.UserPipeline': 100,
+    'wb_spider.pipelines.PostPipeline': 150,  # 150
     'wb_spider.pipelines.LongtextPipeline': 200,
     'wb_spider.pipelines.ErrorPipeline': 250
 }

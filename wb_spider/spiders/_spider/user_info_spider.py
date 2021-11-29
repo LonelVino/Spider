@@ -24,7 +24,7 @@ class UserSpider(BaseSpider):
 
     def _parse_profile(self, resp):
         item = UserItem()
-        user_info = json.loads(resp.text)['data']['userinfo']
+        user_info = json.loads(resp.text)['data']['userInfo']
         item['user_info'] = user_info
         yield item
         

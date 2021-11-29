@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 
 
-class Config(ABC):
+class BaseConfig(ABC):
     def __init__(self):
         self.url = "https://m.weibo.cn/"
 

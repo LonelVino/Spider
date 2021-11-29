@@ -50,8 +50,8 @@ todo
 Clone and install the dependencies of python
 
 ```shell
-git clone git@github.com:CharesFang/WeiboSpider.git
-cd WeiboSpider
+git@github.com:LonelVino/Spider.git
+cd Spider
 pip install -r requirements.txt
 ```
 
@@ -74,7 +74,7 @@ It will create 2 users respectively: `admin`(administrator) and `weibo`(usual us
 > **NB**:  You will be asked to input your own password when you create the `admin` and `weibo`.
 
 ```shell
-sudo docker exec -it weibo mongo 127.0.0.1:27017 /etc/resource/db_init.js
+sudo docker exec -it weibo mongo 127.0.0.1:27018 /etc/resource/db_init.js
 ```
 
 **Modify the params:**
@@ -83,7 +83,11 @@ At last，rewrite `./WeiboSpider/database/DBconnector.py`，modify the `mongo_pw
 
 ```python
 def __init__(self):
+<<<<<<< HEAD
   self.mongo_uri = "127.0.0.1" # IP used to connect with Docker.
+=======
+  self.mongo_uri = "127.0.0.1:27018" # IP used to connect with Docker.
+>>>>>>> 2e1a1d8 (samll bugs)
   self.mongo_database = "weibo" # database created from init_db.js
   self.mongo_user_name = "weibo" # the user in database 'weibo'
   self.mongo_pass_wd = "Your password."
@@ -114,7 +118,7 @@ There are 3 spiders available now, and the corresponding commands are as follow:
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
-| `weibo_spider` | `scrapy crawl weibo_spider -a uid=xxx|xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx | xxx"` (the target collection user's `UID`) |
+| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx|xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx | xxx"` (the target collection user's `UID`) |
 | `user_spider`  | `scrapy crawl user_spdier -a uid=xxx|xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
 | `post_spider`  | `scrapy crwal post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`weibo_spider`. |
 
@@ -126,7 +130,7 @@ According to the [command line tool of scrapy](https://doc.scrapy.org/en/latest/
 from scrapy.cmdline import execute
 
 if __name__ == '__main__':
-    spider_cmd = "scrapy crawl weibo_spider -a uid=user1_id|user2_id|...."
+    spider_cmd = "scrapy crawl wb_spider -a uid=user1_id|user2_id|...."
     execute(spider_cmd.split())
     
 ```

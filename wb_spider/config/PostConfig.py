@@ -16,7 +16,7 @@ class PostConfig(BaseConfig):
         self.gen_url(**kwargs)
     
     def gen_url(self, **kwargs):
-        assert('uid' in kwargs.keys() and 'page' in kwargs.keys()) or 't_id' in kwargs.keys(), 'Input Arguments Error!'
+        assert ('uid' in kwargs.keys() and 'page' in kwargs.keys()) or 't_id' in kwargs.keys(), 'Input Arguments Error!'
         if 'page' in kwargs.keys():
             uid = str(kwargs['uid'])
             page = kwargs['page']
