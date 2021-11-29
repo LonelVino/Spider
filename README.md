@@ -116,7 +116,8 @@ There are 3 spiders available now, and the corresponding commands are as follow:
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
 | `wb_spider` | `scrapy crawl wb_spider -a uid=xxx|xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx | xxx"` (the target collection user's `UID`) |
 | `user_spider`  | `scrapy crawl user_spdier -a uid=xxx|xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
-| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`weibo_spider`. |
+| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
+| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx|xxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
 
 #### With Python Script
 
@@ -130,6 +131,20 @@ if __name__ == '__main__':
     execute(spider_cmd.split())
     
 ```
+
+### DataBase
+
+You have kinds of ways to explore the database, such as [MongoDB Atlas](https://docs.atlas.mongodb.com/getting-started/), [MongoDB Compass](https://docs.mongodb.com/compass/current/), [MongoDB Server](https://docs.mongodb.com/manual/tutorial/getting-started/), etc., according to the [MongoDB documents](https://docs.mongodb.com/). Here, I used MongoDB Server and MongoDB Compass together.
+
+#### MongoDB Server
+
+You can refer to the [official tutorial](https://docs.mongodb.com/manual/tutorial/getting-started/), which is very comprehensive.
+
+#### MongoDB Compass
+Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to visualize the database, which is a powerful GUI for querying, aggregating, and analyzing the MongoDB data in a visual environment. The examples of Database are as follows:
+
+![Tag Posts Database](./assets/img/tag_post_db.png)
+![Reviews Database](./assets/img/review_db.png)
 
 ## Structure
 

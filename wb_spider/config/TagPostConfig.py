@@ -1,19 +1,13 @@
 from wb_spider.base import BaseConfig
 
 # https://m.weibo.cn/api/container/getIndex?
-# containerid=100103type=60&q=陕西
-# &t=0&page_type=searchall&page=2
+# containerid=100103typetype%3D60%26&q%3D%23陕西   
+# %26t%3D0&page_type=searchall
+# &page=2
+# NB: here %23陕西 -> #陕西, is the input parameter
 class TagPostConfig(BaseConfig):
     def __init__(self):
         super(TagPostConfig, self).__init__()
-        # self.__api = {
-        #     'api_0': 'api/container/getIndex?containerid=100103type=60&q=',
-        #     'api_1': '&t=0&page_type=searchall',
-        #     'api_2': '&page=',
-        #     'longtext_api': 'statuses/extend?id='
-        # }
-        
-        
         self.__api = {
             'api_0': 'api/container/getIndex?containerid=100103type%3D60%26q%3D',
             'api_1': '%26t%3D0&page_type=searchall',

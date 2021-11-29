@@ -20,13 +20,16 @@ class BaseSpider(Spider, ABC):
     def __init__(self, uid, *args, **kwargs):
         super(BaseSpider, self).__init__(*args, **kwargs)
         self.uid = uid
-
+    
     @staticmethod
     def get_uid_list(uid: str) -> list:
         return list(filter(None, uid.split('|')))
 
     def parse_err(self, response):
         item = ErrorItem()
-        item['uid'] = response.request.meta['uid']
+        if response.request.meta['uid'] != None:
+            item['uid'] = response.request.meta['uid']
+        elif response.request.meta['pid'] != None:
+            item['pid'] = response.request.meta['pid']
         item['url'] = response.request.url
         yield item
