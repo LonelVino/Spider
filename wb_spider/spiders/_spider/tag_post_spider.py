@@ -23,12 +23,13 @@ class TagPostSpider(BaseSpider):
             url = self._tp_generator.gen_url(uid=uid, page=None)
             print(url)
             yield Request(url=url, dont_filter=True, callback=self._parse_post,\
-                errback=self.parse_err, meta={'uid': uid, 'last_page': 0})
+                errback=self.parse_err, meta={'uid': uid, 'last_page':0})
             
     def _parse_post(self, resp, **kwargs):
         info = json.loads(resp.text)
         data = info['data']
         page = data['cardlistInfo']['page']
+        # page = resp.meta['last_page'] + 1
         uid = resp.meta['uid']
         last_page = resp.meta['last_page']
         

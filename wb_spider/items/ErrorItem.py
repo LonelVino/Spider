@@ -14,5 +14,4 @@ Item Types: Dictionaries or `Item`
 '''
 
 class ErrorItem(Item):
-    uid = Field()
     url = Field()

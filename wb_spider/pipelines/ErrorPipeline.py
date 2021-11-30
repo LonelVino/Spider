@@ -8,8 +8,5 @@ class ErrorPipeline(Pipeline):
     def process_item(self, item, spider):
         #TODO: add comment
         if isinstance(item, ErrorItem):
-            self.db['error_log'].update_one(
-                {'$set': dict(item)},
-                upsert=True
-            )
+            self.db['error_log'].insert_one(dict(item))
         return item

@@ -27,9 +27,5 @@ class BaseSpider(Spider, ABC):
 
     def parse_err(self, response):
         item = ErrorItem()
-        if response.request.meta['uid'] != None:
-            item['uid'] = response.request.meta['uid']
-        elif response.request.meta['pid'] != None:
-            item['pid'] = response.request.meta['pid']
         item['url'] = response.request.url
         yield item

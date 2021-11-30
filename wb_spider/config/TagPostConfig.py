@@ -9,7 +9,7 @@ class TagPostConfig(BaseConfig):
     def __init__(self):
         super(TagPostConfig, self).__init__()
         self.__api = {
-            'api_0': 'api/container/getIndex?containerid=100103type%3D60%26q%3D',
+            'api_0': 'api/container/getIndex?containerid=100103type%3D61%26q%3D',
             'api_1': '%26t%3D0&page_type=searchall',
             'api_2': '&page=',
             'longtext_api': 'statuses/extend?id='

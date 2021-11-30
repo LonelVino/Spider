@@ -47,9 +47,9 @@ class RetryMiddleware(object):
             try:
                 json_obj = loads(response.text)
                 if json_obj['ok'] == 0:
-                    msg = f"{msg_template} Crawled json string without data, " \
-                          f"crawled times {retried_times}, target url: {request.url}."
-                    log(msg=msg, level=WARNING)
+                    # msg = f"{msg_template} Crawled json string without data, " \
+                    #       f"crawled times {retried_times}, target url: {request.url}."
+                    # log(msg=msg, level=WARNING)
                     return request
                 else:
                     return response
