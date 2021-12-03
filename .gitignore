@@ -2,3 +2,6 @@
 __pycache__
 *.log
 *.pyc
+launch_spider.py
+*.ipynb
+data/*
