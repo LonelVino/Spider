@@ -148,42 +148,58 @@ Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to v
 
 ## Structure
 
-### Database
-
-- Docker container
-  - docker initialization bash
-  - clean the database directory
-  - resource/database initialization 
-- database module in python
-  - initialize
-  - connect function
-
-### Spider
-
-- settings
-- Abstract Class
-  - Base Spider class
-  - Base Pipeline class
-  - Base configuration class
-- database
-- items
-  - User
-  - Post
-  - Error
-  - Longtext
-- pipelines
-  - User
-  - Post
-  - Error
-  - Longtext
-- middlewares
-  - initialization
-  - fake_agent
-  - proxy
-  - retry
-- configuration 
-  - user
-  - post
-- Spider
-  - user
-  - post
+```
+📦wb_spider
+ ┣ 📂base
+ ┃ ┣ 📜BaseConfig.py
+ ┃ ┣ 📜BaseSpider.py
+ ┃ ┣ 📜Pipeline.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂config
+ ┃ ┣ 📜ReviewConfig.py
+ ┃ ┣ 📜TagPostConfig.py
+ ┃ ┣ 📜UserConfig.py
+ ┃ ┣ 📜UserPostConfig.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂database
+ ┃ ┣ 📜DBConnector.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂items
+ ┃ ┣ 📜ErrorItem.py
+ ┃ ┣ 📜LongtextItem.py
+ ┃ ┣ 📜ReviewItem.py
+ ┃ ┣ 📜TagPostItem.py
+ ┃ ┣ 📜UserItem.py
+ ┃ ┣ 📜UserPostItem.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂middlewares
+ ┃ ┣ 📜DepthMiddleware.py
+ ┃ ┣ 📜FakeUserAgentMiddleware.py
+ ┃ ┣ 📜InitialMiddleware.py
+ ┃ ┣ 📜ProxyMiddleware.py
+ ┃ ┣ 📜RetryMiddleware.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂pipelines
+ ┃ ┣ 📜ErrorPipeline.py
+ ┃ ┣ 📜LongtextPipeline.py
+ ┃ ┣ 📜ReviewPipeline.py
+ ┃ ┣ 📜TagPostPipeline.py
+ ┃ ┣ 📜UserPipeline.py
+ ┃ ┣ 📜UserPostPipeline.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂resource
+ ┃ ┗ 📜0.1.11.json
+ ┣ 📂spiders
+ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┣ 📜__init__.cpython-38.pyc
+ ┃ ┃ ┗ 📜wb_spider.cpython-38.pyc
+ ┃ ┣ 📂_spider
+ ┃ ┃ ┣ 📜__init__.py
+ ┃ ┃ ┣ 📜tag_post_spider.py
+ ┃ ┃ ┣ 📜user_info_spider.py
+ ┃ ┃ ┗ 📜user_post_spider.py
+ ┃ ┣ 📜__init__.py
+ ┃ ┗ 📜wb_spider.py
+ ┣ 📜__init__.py
+ ┗ 📜settings.py
+```
