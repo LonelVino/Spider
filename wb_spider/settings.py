@@ -29,17 +29,6 @@ DEFAULT_REQUEST_HEADERS = {
     'Accept-Language': 'zh',
 }
 
-# Enable or disable downloader middlewares
-# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
-    'wb_spider.middlewares.InitialMiddleware': 50,
-    'wb_spider.middlewares.FakeUserAgentMiddleware': 100,
-    'wb_spider.middlewares.ProxyMiddleware': None,  # 150
-    'wb_spider.middlewares.RetryMiddleware': 250  # 250
-}
-
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
@@ -50,6 +39,19 @@ ITEM_PIPELINES = {
     'wb_spider.pipelines.LongtextPipeline': 200,
     'wb_spider.pipelines.ErrorPipeline': 250
 }
+
+# Enable or disable downloader middlewares
+# The downloader middleware is a framework of hooks into Scrapy’s request/response processing
+# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+    'wb_spider.middleware.InitialMiddleware': 50,
+    'wb_spider.middleware.FakeUserAgentMiddleware': 100,
+    'wb_spider.middleware.ProxyMiddleware': None,  # 150
+    'wb_spider.middleware.RetryMiddleware': 250  # 250
+}
+
 
 # Custom Option
 # To get proxy, each proxy form like "https://xxx.xxx.xxx:xxxx/"

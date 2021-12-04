@@ -21,7 +21,7 @@ db.createUser(
     }
 );
 print();
-// Connect: mongosh --port 27017 --authenticationDatabase "admin" -u "admin" -p
+// Connect: mongosh --port 27018 --authenticationDatabase "admin" -u "admin" -p
 
 // auth as admin
 print("Enter passwd to auth as admin.");
@@ -61,4 +61,4 @@ db.createCollection('error_log');
 print("Successfully create collections.");
 
 conn.close();
-print("Mongodb initial finished.");
+print("Weibo Mongodb initial finished.");

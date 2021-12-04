@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # local machine mongodb dir configurations
-readonly root_dir="$HOME/mongoDB"
+readonly root_dir="$HOME/mongoDB_wb"
 readonly data_path="$root_dir/data"
 readonly config_path="$root_dir/config"
 readonly log_path="$root_dir/log"
@@ -10,7 +10,7 @@ readonly resource_path="$root_dir/resource"
 # mongodb files names
 readonly config_name="mongod.conf"
 readonly log_name="mongod.log"
-readonly db_file_name="db_init.js"  # initialize the database
+readonly db_file_name="db_init_wb.js"  # initialize the database
 
 # mongodb files paths
 readonly config_file_path="$config_path/$config_name"
@@ -80,7 +80,7 @@ fi
 
 	cat <<-EOF
 Run command
-	"sudo docker exec -it wb_spider mongo 127.0.0.1:27018 /etc/resource/db_init.js"
+	"sudo docker exec -it wb_spider mongo 127.0.0.1:27018 /etc/resource/db_init_wb.js"
 EOF
 }
 

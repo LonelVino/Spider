@@ -2,39 +2,11 @@
 
  ![](https://img.shields.io/badge/Scrapy-v2.4-blue) ![](https://img.shields.io/badge/Python-v3.8-orange) ![](https://img.shields.io/badge/Spider-Weibo-yellow)
 
-A spider for news on facebook, twitter, weibo and wechat.
+A spider for news on **Twitter** and **Weibo**.
 
-## Preview
 
-#### 1. Weibo
-
-##### 1.1 Some difficulties of scraping on weibo
-
-- I have to scan QR code to login, but does it work when i log in by urllib? 
-- Weibo PC version has the most strict anti-spider protection. Developers need a lot of experience to bypass the anti-spider protection.
-> Anti-spider measures:
->  - Detection of abnormal IP traffic.
->  - Protectionof user data.
->  - Account login abnorality detection.
->  - Kinds of verification code.
->
-> Previous solutions:
->  - Account pool
->  - By studying the certification mechanism of Weibo to achieve automated simulated login. For example, we may need to access to the QR code platform or artificial identification to bypass the QR code authorization.  
->  - Simulate a login process of normal users: get corresponding cookies to build a "cookie pool", and use these cookies to processing the scraping.  
->  - Purchasing a certain number of IP and bind the agent IP for each cookie.
->  - Attention to the load balancing of each cookie-Ip and to clean the cache after the cookie expires.
->
-> Above all, the scarping processing on PC website of Weibo is so thorny and inefficient, it also contains high errors and is difficult to ensure that the complete user data can be obtained in large-scale data acquisitions. 
-
-##### 1.2 **Possible solutions**:
-
-- Use the mobile site of Weibo: [M weibo](m.weibo.cn), which provides the data source for users on mobile phone. This website has much loose anti-spider protections. With this website, we don't need to build cookie pool and agent IP (of course, there's a lot of restrictions of acquisition speed). But anyway this is a lightweight and efficient weibo spider.
-- Use json file to save the data, since the acquired data from [M weibo](m.weibo.cn) is in  json format, there's basically little need for data cleaning, which increases the scraping speed much. At the same time, the JSON data obtained through the dat interface is extremely rich - about 10 posts through 1 request. 
-
-## overall idea
-
-todo
+## Pre-Knowledge
+[Some basic knowledge and the developement log](./development_log.md)
 
 ## How to start
 
@@ -43,7 +15,7 @@ todo
 - Operating system: Common Linux distribution is feasible (my OS for development test is ubuntu 20.04) 
 - `Python> = 3.6.0`
 - `mongoDB> =4.2`
--  Docker, if you can, please keep the Docker version is the latest
+-  **Docker**, if you can, please keep the Docker version is the latest
 
 ###  Initialize
 
@@ -58,34 +30,63 @@ pip install -r requirements.txt
 **Initialize docker container:** 
 The container is mounted from image `mongoDB`, used as a database of spider. 
 
+1. **Create Weibo Spider**
 ```shell
-sudo chmod 755 ./init/init.sh
-./init/init.sh
+sudo chmod 755 ./init/init_wb.sh
+./init/init_wb.sh
+```
+2. **Create Twitter Spider**
+```shell
+sudo chmod 755 ./init/init_tw.sh
+./init/init_tw.sh
 ```
 
-`Init.sh` will create the necessary configurations and mapped directories for `mongoDB` in the docker container.  The data is stored in `Home/mongo`
+`Init_*.sh` will create the necessary configurations and mapped directories for `mongoDB` in the docker container.  The data is stored in `Home/mongoDB`
 
 **Initialize the database:**
 
-Then，according to the hint of`init.sh`，we need to execute the following command to call the script `db_init.js`，which is used to initialize the database.
-
-It will create 2 users respectively: `admin`(administrator) and `weibo`(usual user)，and 4 tables `weibo`,`post, user` and `error_log`.
-
-> **NB**:  You will be asked to input your own password when you create the `admin` and `weibo`.
+Then，according to the hint of`init_*.sh`，we need to execute the following command to call the script `db_init_wb.js` or `db_init_tw.js`， which is used to initialize the database.
 
 ```shell
-sudo docker exec -it weibo mongo 127.0.0.1:27018 /etc/resource/db_init.js
+sudo docker exec -it wb_spider mongo 127.0.0.1:27018 /etc/resource/db_init_wb.js
+sudo docker exec -it tw_spider mongo 127.0.0.1:27019 /etc/resource/db_init_tw.js
 ```
+
+- When you create Weibo Spider: It will create 2 users respectively: `admin`(administrator) and `weibo`(usual user)，and 6 tables `user`,`user_post`, `tag_post`, `review` and `error_log`.
+- When you create Twitter Spider: It will also create 2 users: `admin` and `twitter`, and 3 tables `user`, `tag_post`, `error_log`. 
+
+> **NB**:  You will be asked to input your own password when you create the `admin` and `weibo` or `twitter`.
+
 
 **Modify the params:**
 
-At last，rewrite `./WeiboSpider/database/DBconnector.py`，modify the `mongo_pwd` in function `__init__` to your own password，which is used for Spider to connect to the database。
+1. When using Weibo Spider:
+
+Rewrite `./wb_spider/database/DBconnector.py`，modify the `mongo_pwd` in function `__init__` to your own password，which is used for Spider to connect to the database。
 
 ```python
 def __init__(self):
   self.mongo_uri = "127.0.0.1:27018" # IP used to connect with Docker.
   self.mongo_database = "weibo" # database created from init_db.js
   self.mongo_user_name = "weibo" # the user in database 'weibo'
+  self.mongo_pass_wd = "Your password."
+```
+
+2. When using Twitter Spider:
+
+Change the `USER_AGENT` in `TweetScraper/settings.py` to identify who you are
+```
+USER_AGENT = 'your website/e-mail' 
+```
+For example: `firefox/xxxxxx@gmail.com`
+
+Rewrite `./tw_spider/database/DBconnector.py`，modify the `mongo_pwd` in function `__init__` to your own password，which is used for Spider to connect to the database。
+
+```python
+def __init__(self):
+  self.mongo_uri = "127.0.0.1:27019" # IP used to connect with Docker.
+  self.mongo_database = "twitter" # database created from init_db.js
+  self.mongo_user_name = "twitter" # the user in database 'weibo'
   self.mongo_pass_wd = "Your password."
 ```
 
@@ -99,25 +100,46 @@ def __init__(self):
 > sudo docker container ls
 > ```
 >
-> Check the ip of container
->
+> Check the ip of a container
+> 
 > ```shell
 > docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_id or container_name]
 > ```
 >
 
 ### Start
+0. **Select Spider**
+
+You can use the SCRAPY_PROJECT environment variable in `scrapy.cfg` to specify a different project for scrapy to use. For example, we define `project2=tw_spider.settings` in `scrapy.cfg`, then we can change the project as Twitter Spider by using: 
+
+```shell
+export SCRAPY_PROJECT=project2
+```
+(Refer to [Commandline tool](https://docs.scrapy.org/en/latest/topics/commands.html))
+
+By default, the scrapy command-line tool will use the default settings, e.g. `wb_spider`. 
+
+> ##### some tips of `scrapy` command tool
+> Usage:
+>    scrapy <command> [options] [args]
+> Available commands:
+>   crawl:        Run a spider
+>   settings:     Getting settings value
+>   startprojet:  Creates a new Scrapy project
+
+
+1. **Weibo**
 
 #### With terminal command
 
-There are 3 spiders available now, and the corresponding commands are as follow:
+There are 4 spiders available now, and the corresponding commands are as follow:
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
-| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx&verbarxxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx &verbar xxx"` (the target collection user's `UID`) |
-| `user_spider`  | `scrapy crawl user_spdier -a uid=xxx&verbarxxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
-| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx&verbarxxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
-| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx&verbarxxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
+| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx&verbar;xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx &verbar; xxx"` (the target collection user's `UID`) |
+| `user_spider`  | `scrapy crawl user_spdier -a uid=xxx&verbar;xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
+| `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx&verbar;xxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
+| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx&verbar;xxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
 
 #### With Python Script
 
@@ -132,6 +154,15 @@ if __name__ == '__main__':
     
 ```
 
+
+2. **Twitter**
+#### With ternimal command
+
+|  Spider Name   |                    CMD                     |                           Function                           |
+| :------------: | :----------------------------------------: | :----------------------------------------------------------: |
+| `tag_post_spider`  | `scrapy crawl tag_post_spider -a query="#xxx,xxx"`  | Collect all the blog posts of the target hashtag, parameters `query` should be `#[keyword]` or `[keyword]`, such as `#shaanxi` or `shaanxi` (the whole command is `scrapy crawl tag_post_spider -a query="#shaanxi"`). |
+
+
 ### DataBase
 
 You have kinds of ways to explore the database, such as [MongoDB Atlas](https://docs.atlas.mongodb.com/getting-started/), [MongoDB Compass](https://docs.mongodb.com/compass/current/), [MongoDB Server](https://docs.mongodb.com/manual/tutorial/getting-started/), etc., according to the [MongoDB documents](https://docs.mongodb.com/). Here, I used MongoDB Server and MongoDB Compass together.
@@ -145,6 +176,11 @@ Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to v
 
 ![Tag Posts Database](./assets/img/tag_post_db.png)
 ![Reviews Database](./assets/img/review_db.png)
+
+
+## overall idea
+
+todo
 
 ## Structure
 
@@ -190,9 +226,6 @@ Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to v
  ┣ 📂resource
  ┃ ┗ 📜0.1.11.json
  ┣ 📂spiders
- ┃ ┣ 📂__pycache__
- ┃ ┃ ┣ 📜__init__.cpython-38.pyc
- ┃ ┃ ┗ 📜wb_spider.cpython-38.pyc
  ┃ ┣ 📂_spider
  ┃ ┃ ┣ 📜__init__.py
  ┃ ┃ ┣ 📜tag_post_spider.py
