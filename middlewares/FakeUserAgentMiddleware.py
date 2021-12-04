@@ -10,7 +10,7 @@ class FakeUserAgentMiddleware(UserAgentMiddleware):
 
     @classmethod   #  returns a class method for the given function, return a UserAgent in the resourse folder
     def from_crawler(cls, crawler):
-        path = f'{os.path.dirname(os.path.dirname(__file__))}/resource/0.1.11.json'
+        path = f'{os.path.dirname(os.path.dirname(__file__))}/middlewares/resource/0.1.11.json'
         ua = UserAgent(path=path)
         s = cls(ua=ua) 
         # Always use self for the first argument to instance methods.
