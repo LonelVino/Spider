@@ -1,8 +1,9 @@
-## Twitter Spider Manual
+# Twitter Spider Manual
 
-### Initialize 
+## Initialize 
 
 **1. Initialize docker container:** 
+
 The container is mounted from image `mongoDB_tw`, used as a database of spider. 
 
 **2. Create Twitter Spider**
@@ -29,7 +30,7 @@ sudo docker exec -it tw_spider mongo 127.0.0.1:27019 /etc/resource/db_init_tw.js
 
 **4.Modify the params**
 
-Change the `USER_AGENT` in `TweetScraper/settings.py` to identify who you are
+Change the `USER_AGENT` in `tw_spider/settings.py` to identify who you are
 ```
 USER_AGENT = 'your website/e-mail' 
 ```
@@ -46,19 +47,19 @@ def __init__(self):
 ```
 
 
-### Start
+## Start
 
-#### With ternimal command
+### With ternimal command
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
-| `tag_tweet_spider`  | `scrapy crawl tag_tweet_spider -a query="#xxx&verbar;xxx"`  | Collect all the blog posts of the target hashtag, parameters `query` should be `#[keyword]` or `[keyword]`, such as `#shaanxi` or `shaanxi` (the whole command is `scrapy crawl tag_tweet_spider -a query="#shaanxi"`). |
+| `tag_tweet_spider`  | `scrapy crawl tag_tweet_spider -a query=#xxx&verbar;xxx`  | Collect all the blog posts of the target hashtag, parameters `query` should be `#[keyword]` or `[keyword]`, such as `#shaanxi` or `shaanxi` (the whole command is `scrapy crawl tag_tweet_spider -a query=#shaanxi`). |
 
 
 
 
-### File Tree Structure
-
+## File Tree Structure
+```
 📦tw_spider
  ┣ 📂base
  ┃ ┣ 📜BaseSpider.py
@@ -84,3 +85,4 @@ def __init__(self):
  ┃ ┗ 📜tag_tweet_spider.py
  ┣ 📜settings.py
  ┗ 📜utlis.py
+ ```

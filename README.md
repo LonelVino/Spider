@@ -8,6 +8,7 @@ A spider for news on **Twitter** and **Weibo**.
 ## Pre-Knowledge
 [Some basic knowledge and the developement log](./docs/development_log.md)
 
+---
 ## How to start
 
 ### Operating environment
@@ -17,7 +18,7 @@ A spider for news on **Twitter** and **Weibo**.
 - `mongoDB> =4.2`
 -  **Docker**, if you can, please keep the Docker version is the latest
 
-###  Initialize and Start
+###  Clone and install dependencies
 
 Clone and install the dependencies of python
 
@@ -27,33 +28,36 @@ cd Spider
 pip install -r requirements.txt
 ```
 
-- [Weibo Spider Manual](./docs/wb_spider_manual.md)
-- [Twitter Spider Manual](./docs/tw_spider_manual.md)
-
-
-
-**Select Spider**
+### Select Spider
 
 You can use the SCRAPY_PROJECT environment variable in `scrapy.cfg` to specify a different project for scrapy to use. For example, we define `project2=tw_spider.settings` in `scrapy.cfg`, then we can change the project as Twitter Spider by using: 
 
 ```shell
 export SCRAPY_PROJECT=project2
 ```
-(Refer to [Commandline tool](https://docs.scrapy.org/en/latest/topics/commands.html))
+(Refer to [Command line tool](https://docs.scrapy.org/en/latest/topics/commands.html))
 
 By default, the scrapy command-line tool will use the default settings, e.g. `wb_spider`. 
 
-> ##### some tips of `scrapy` command tool
+> ### some tips of `scrapy` command tool
+>```shell
 > Usage:
->    scrapy <command> [options] [args]
+>   scrapy <command> [options] [args]
 > Available commands:
 >   crawl:        Run a spider
 >   settings:     Getting settings value
 >   startprojet:  Creates a new Scrapy project
+>```
+
+### **Initialize and Start Spider**
 
 
+- [Weibo Spider Manual](./docs/wb_spider_manual.md)
+- [Twitter Spider Manual](./docs/tw_spider_manual.md)
 
-### DataBase
+--- 
+
+## DataBase
 
 You have kinds of ways to explore the database, such as [MongoDB Atlas](https://docs.atlas.mongodb.com/getting-started/), [MongoDB Compass](https://docs.mongodb.com/compass/current/), [MongoDB Server](https://docs.mongodb.com/manual/tutorial/getting-started/), etc., according to the [MongoDB documents](https://docs.mongodb.com/). Here, I used MongoDB Server and MongoDB Compass together.
 
@@ -68,13 +72,13 @@ Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to v
 ![Reviews Database](./assets/img/review_db.png)
 
 
+## Appendix
 
-
-> ##### Some tips of Docker
+> ### Some tips of Docker
 >
 > start or stop a docker container
 >
-> ```shell
+> ```docker
 > sudo docker container start [container name]
 > sudo docker container stop [container name]
 > sudo docker container ls
@@ -82,7 +86,8 @@ Besides, I use [MongoDB Campass](https://docs.mongodb.com/compass/current/) to v
 >
 > Check the ip of a container
 > 
-> ```shell
+> ```docker
 > docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_id or container_name]
 > ```
 >
+

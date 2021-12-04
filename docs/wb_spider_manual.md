@@ -1,8 +1,9 @@
-## Weibo Spider Manual
+# Weibo Spider Manual
 
-### Initialize 
+## Initialize 
 
 **1. Initialize docker container:** 
+
 The container is mounted from image `mongoDB_wb`, used as a database of spider. 
 
 **2. Create Weibo Spider**
@@ -16,7 +17,7 @@ sudo chmod 755 ./init/init_wb.sh
 
 **3. Initialize the Weibo database:**
 
-Then，according to the hint of`init_wb.sh`，we need to execute the following command to call the script `db_init_wb.js`， which is used to initialize the database.
+Then，according to the hint of `init_wb.sh`，we need to execute the following command to call the script `db_init_wb.js`， which is used to initialize the database.
 
 ```shell
 sudo docker exec -it wb_spider mongo 127.0.0.1:27018 /etc/resource/db_init_wb.js
@@ -40,20 +41,24 @@ def __init__(self):
   self.mongo_pass_wd = "Your password."
 ```
 
-### Start
+## Start
 
-#### With terminal command
+### With terminal command
 
 There are 4 spiders available now, and the corresponding commands are as follow:
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
-| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx&verbar;xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx &verbar; xxx"` (the target collection user's `UID`) |
+| `wb_spider` | `scrapy crawl wb_spider -a uid=xxx&verbar;xxx` | Collecting the target users’ information and all blog posts, which must be introduced `-a uid = xxx&verbar;xxx"` (the target collection user's `UID`) |
 | `user_spider`  | `scrapy crawl user_spdier -a uid=xxx&verbar;xxx`  | Collect the target users’ information， parameters are the same as`weibo_spider`. |
 | `user_post_spider`  | `scrapy crawl user_post_spider -a uid=xxx&verbar;xxx`  | Collect all the blog posts of the target users, parameters are the same as`wb_spider`. |
-| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx&verbar;xxx`  | Collect all the blog posts of the target hashtag and reviews of each post, parameters `uid` should be `%23[keyword]`, such as `%23陕西` (the whole command is `scrapy crawl tag_post_spider -a uid="%23陕西"`). |
+| `tag_post_spider`  | `scrapy crawl tag_post_spider -a uid=xxx&verbar;xxx`  | Collect all the blog posts of the target hashtag and reviews of each post. |
 
-#### With Python Script
+>**NB**: When you use `tag_post_spider`, you need to use $\%23$ to replace $\#$, in other words, the parameters `uid` should be `%23[keyword]`, such as `%23陕西` 
+>
+>(The completed command is `scrapy crawl tag_post_spider -a uid="%23陕西"`).
+
+### With Python Script
 
 According to the [command line tool of scrapy](https://doc.scrapy.org/en/latest/topics/commands.html?highlight=scrapy%20crawl), we can execute `cmd` command with python to call the sprider:
 
@@ -68,7 +73,7 @@ if __name__ == '__main__':
 
 
 
-### File Tree Structure
+## File Tree Structure
 
 ```
 📦wb_spider
