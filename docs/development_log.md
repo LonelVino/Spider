@@ -34,8 +34,55 @@
 
 #### 2.1 Some difficulties of scraping on Twitter
 
-Twitter also has anti-spider protections as Weibo, but to some extent, the data on Twitter is a little bit easier to scrape, for example, Twitter doesn't has a lot of verification codes.
+Twitter also has anti-spider protections as Weibo, but to some extent, the data on Twitter is a little bit easier to scrape, for example, Twitter doesn't has a lot of verification codes and <u>Twitter provides available APIs for developers to explore the data:</u> [Twitter API for developers](https://dev.twitter.com/rest/public)
+
+> Limitations of APIs: 
+>- <=180 requests in 15 mins
+>- <= 100 tweets per request
+>- only accesss Tweets written in the **past 7 days**
+>
 
 #### 2.2 Overall idea of Twitter Spider
 
-![Twitter Spider Overall](./assets/img/Twitter_scraper_process.png)
+**(1) Important Tweet Data Field**
+
+- Basic: `id`, `url`, `text`, `html`, `timestamp`, `epoch timestamp`;
+- Related: `Links`, `Hashtags`, `Image URL`, `Video URL` inside Tweet;
+- Statistics: number of `likes`, `replies`, `retweets`;
+- User: `username`, `screen name`, `user_id`;
+- reply: `reply to`, `replied to`, `users Tweet is an reply to`;
+
+**(2) Additional User Data Field**
+    
+- Basic: `data joined`, `localtion`, `blog`, `is verified`
+- Statistics: number of `tweets`, `following`, `followers`, `likes`, `lists`
+
+
+**Twitter Spider Structure**
+![Twitter Spider Overall](../assets/img/Twitter_scraper_process.png)
+
+
+**Conversation of each Tweet**
+
+
+```python
+entries = data.threaded_conversation_with_injections.instructions.entries
+
+for entry in entries:
+    entry_id = entry['entryId']
+	items = entry['content']['items']
+	for item in items:
+        result = item['itemContent']['tweet_results']['result']
+        user_info = result['core']['user_results']['result']
+        entry_info = result['legacy']   # text, created_time, etc.,
+        # mentioned_user_info = entry_info['entities']['user_mentions'] 
+```
+
+```
+entry 1
+|-- item 1/itemContent/tweet_result/result  
+	|-- core/user_results/result   # user_info
+	|-- legacy     # entry_info
+```
+
+> NB: number of items: the number of conversations in one reply

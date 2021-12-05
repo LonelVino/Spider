@@ -1,9 +1,0 @@
-# Weibo
-- Add proxy middleware
-- Solve the request limitation problem
-
-# Twitter
-- MVP
-- Connect to the database
-- Get the comments
-

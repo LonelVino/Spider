@@ -1,0 +1,50 @@
+For better view, please install Todo+ in extension market. (Extension Id: fabiospampinato.vscode-todo-plus)
+
+Press Cmd/Ctrl+Enter to add a new todo
+Press Alt+D to mark a todo as done, press it again to undo the action
+Press Alt+C to mark a todo as cancelled
+customizable tags: @critical @high @low @today
+Timekeeping: @done, @started(), @lasted(), @est
+
+# Weibo
+Todos:
+
+  New:
+    ☐ Add proxy middleware
+    ☐ Solve the request limitation problem
+    ☐ Add limit number of scraping
+    ☐ Output to local files
+    ☐ Add begin date and end date of scraping
+    
+  Advanced:
+    ☐ occurence of tags, for example "#tag1 and #tag2", "#tag1 or #tag2" 
+    
+  Done:
+
+  Cancelled:
+
+
+# Twitter
+Todos:
+  
+  New:
+    ☐ Get the comments @high
+    ☐ Scrape User page
+    ☐ Add limit number of scraping
+    ☐ Output to local files
+    ☐ Add begin date and end date of scraping
+  
+  Advanced:
+    ☐ occurence of tags, for example "#tag1 and #tag2", "#tag1 or #tag2" 
+    ☐ search for tweets from a specific user
+    ☐ search for tweets to a specific user
+    ☐ search for tweets written from a location
+    > (Refer to [Search Example](https://lifehacker.com/search-twitter-more-efficiently-with-these-search-opera-1598165519))
+  
+
+  Done:
+    ✔ MVP @done(21-12-05 12:07)
+    ✔ Connect to the database @done(21-12-05 12:09)
+ 
+  Cancelled:
+  
