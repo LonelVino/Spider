@@ -1,6 +1,6 @@
 # Twitter Spider Manual
 
-## Initialize 
+## Initialize
 
 **1. Initialize docker container:** 
 
@@ -46,10 +46,51 @@ def __init__(self):
   self.mongo_pass_wd = "Your password."
 ```
 
-
 ## Start
 
-### With ternimal command
+#### Start Docker
+
+If you initialize the spider as the instruction above, then you can skip the guide about how to start docker.
+
+If you initialize your spider before and wanna use it directly, following the next command. (If it has been a long time that your forget the name of your spider container, use `docker ls` to check the name of the container you wanna use)  
+
+```bash
+docker start wb_spider  # start your spider container, here wb_spider is the name of container
+docker exec -it wb_spider /bin/bash # enter the bash commandline mode of your spider container 
+```
+
+#### Start and Connect to Mongodb
+
+After you enter into the bash of your spider container, you can run the command below to start the mongo database service:
+
+```
+mongo [IP address] # start mongo service, for example: mongo 127.0.0.1:27018
+```
+
+Then specify the database you want to use, and authenticate with your username and password which are created when initializing the spider.
+
+```
+use weibo # use the database 'weibo'
+db.auth('weibo', '123456')  # db.auth( <username>, <password> )
+```
+
+Congratulation, you connect to your database successfully ! Now you can check and modify the data your crawled from the website. There are some common mongodb shell commands:
+
+```
+show dbs # display the database
+show collections  # show the data tables & collections
+
+db.createCollection(name) # create a collection
+db.COLLECTION_NAME.drop();  # drop a collection
+db.COLLECTION_NAME.find(condition)  # query in a collection
+db.colloction.remove(CONDITION)  # delete document
+```
+
+ More commands of mongodb shell, please refer to [mongo tutorial](https://tecadmin.net/tutorial/mongodb/mongodb-tutorials/) .
+
+### Start Spider
+
+#### With ternimal command
 
 |  Spider Name   |                    CMD                     |                           Function                           |
 | :------------: | :----------------------------------------: | :----------------------------------------------------------: |
@@ -85,4 +126,4 @@ def __init__(self):
  ┃ ┗ 📜tag_tweet_spider.py
  ┣ 📜settings.py
  ┗ 📜utlis.py
- ```
+```

@@ -58,7 +58,7 @@ DOWNLOADER_MIDDLEWARES = {
 PROXY_URL = ''
 
 # The max retry times when crawling failed
-MAX_RETRY_TIME = 3
+MAX_RETRY_TIME = 30
 
 # Disable cookies (enabled by default)
 # COOKIES_ENABLED = False
